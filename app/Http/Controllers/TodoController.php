@@ -16,6 +16,9 @@ class TodoController extends Controller
 
     public function store(Request $request)
     {
+        if(Auth::guest()){
+            return redirect()->route('login.form');
+        }
         $request->validate([
             'content' => 'required|string|max:1000',
         ]);
