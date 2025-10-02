@@ -48,6 +48,7 @@
                         <th class="px-2 sm:px-4 py-2">#</th>
                         <th class="px-2 sm:px-4 py-2">รายการสิ่งที่ต้องทำ</th>
                         <th class="px-2 sm:px-4 py-2">สร้างโดย</th>
+                        <th class="px-2 sm:px-4 py-2">วันที่สร้าง</th>
                         <th class="px-2 sm:px-4 py-2">สถานะ</th>
                         <th class="px-2 sm:px-4 py-2">Actions</th>
                     </tr>
@@ -71,10 +72,12 @@
                                     {{ $todo->content }}
                                 @endif
                             </td>
-                            <td class="px-4 py-2 align-top">{{ $todo->user->name ?? '-' }}</td>
+                            <td class="px-4 py-2 align-top text-center">{{ $todo->user->name ?? '-' }}</td>
+                            <td class="px-4 py-2 align-top text-center">
+                                {{ $todo->created_at->format('Y-m-d H:i') }}</td>
                             <td class="px-4 py-2 align-top">
                                 @if ($todo->completed)
-                                    <span class="text-green-600 font-semibold">Done</span><br>
+                                    <span class="text-green-600 font-semibold">สำเร็จ</span><br>
                                     <span class="text-xs text-gray-500">by {{ $todo->completer->name ?? '-' }}<br>
                                         @if ($todo->completed_at)
                                             {{ \Carbon\Carbon::parse($todo->completed_at)->format('Y-m-d H:i') }}
