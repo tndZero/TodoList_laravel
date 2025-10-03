@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
     public function store(Request $request, $todoId)
     {
+        if (Auth::guest()) {
+            return redirect()->route('login.form');
+        }
         $request->validate([
             'content' => 'nullable|string|max:1000',
             'image' => 'nullable|image|max:2048',
