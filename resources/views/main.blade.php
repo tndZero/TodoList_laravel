@@ -145,8 +145,27 @@
                                                     d="M16 5l3 3m-2 2l-3-3" />
                                             </svg>
                                             Attach Image
-                                            <input type="file" name="image" accept="image/*" class="hidden" />
+                                            @if ($errors->has('image'))
+                                                <span class="text-red-500 text-xs ml-2">{{ $errors->first('image') }}</span>
+                                            @endif
+                                            <input type="file" name="image" accept="image/*" class="hidden file-input" />
                                         </label>
+                                        <span class="ml-2 text-xs text-gray-600 file-info"></span>
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function () {
+                                                document.querySelectorAll('.file-input').forEach(function(input) {
+                                                    input.addEventListener('change', function(e) {
+                                                        const info = input.closest('form').querySelector('.file-info');
+                                                        if (input.files.length > 0) {
+                                                            const file = input.files[0];
+                                                            info.textContent = `${file.name} (${(file.size/1024).toFixed(1)} KB)`;
+                                                        } else {
+                                                            info.textContent = '';
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        </script>
                                         <button type="submit"
                                             class="inline-flex items-center px-3 py-1 bg-blue-100 text-blue-700 rounded cursor-pointer text-xs hover:bg-blue-200 transition">Comment</button>
                                     </form>
